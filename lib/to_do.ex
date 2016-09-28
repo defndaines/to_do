@@ -14,6 +14,12 @@ defmodule ToDo do
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ToDo.Supervisor]
-    Supervisor.start_link(children, opts)
+    state = Supervisor.start_link(children, opts)
+
+    data = ToDo.Data.parse_data("test/data.csv", ?|)
+    for task <- data,
+      do: ToDo.TaskAgent.add_task(task["user"], task["date"], task["task"])
+
+    state
   end
 end

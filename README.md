@@ -23,7 +23,16 @@ mix test
 
 ### Running Locally
 
-TBD
+To launch the application along with an interactive shell:
+```
+iex -S mix
+```
+
+This should expose endpoints such as:
+```
+curl http://127.0.0.1:8080/users
+curl http://127.0.0.1:8080/users/alice
+```
 
 ## API
 
