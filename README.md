@@ -33,7 +33,7 @@ The following endpoints are supported.
 
 Returns a list of all users.
 
-### GET `/users/<user-id>/tasks`
+### GET `/users/<user-id>`
 
 Returns a list of all tasks for the user.
 
