@@ -1,6 +1,11 @@
-defmodule TaskAgent do
+defmodule ToDo.TaskAgent do
   @moduledoc """
   Asynchronous store of all user tasks.
+
+  This data structure is generic and can store any terms in the form of
+    key -> secondary_key -> set of values
+  with the assumption that all combinations of three values (key, secondary_key,
+  value) are unique. It is also optimized for access where the keys are known.
   """
 
   @name __MODULE__

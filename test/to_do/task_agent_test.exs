@@ -1,6 +1,6 @@
-defmodule TaskAgentTest do
+defmodule ToDo.TaskAgentTest do
   use ExUnit.Case, async: true
-  doctest TaskAgent
+  doctest ToDo.TaskAgent
 
   setup do
     {:ok, agent} = TaskAgent.start_link
