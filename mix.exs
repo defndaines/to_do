@@ -28,6 +28,7 @@ defmodule ToDo.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:maru, "~> 0.10"}]
+    [{:maru, "~> 0.10.4"},
+     {:csv, "~> 1.4.2"}]
   end
 end
