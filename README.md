@@ -14,6 +14,12 @@ have homebrew installed, this can be done with:
 brew install elixir
 ```
 
+To load dependencies and compile the project:
+```
+mix deps.get
+mix compile
+```
+
 ### To Run Tests
 
 Run tests from the root directory with:
