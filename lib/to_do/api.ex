@@ -1,6 +1,10 @@
 defmodule ToDo.API do
   use Maru.Router # alias ToDo.TaskAgent, as: Store
 
+  @moduledoc """
+  Defines the routes supported by this application.
+  """
+
   namespace :users do
     get do
       json(conn, ToDo.TaskAgent.users())
