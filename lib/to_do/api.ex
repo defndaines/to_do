@@ -10,6 +10,14 @@ defmodule ToDo.API do
       get do
         json(conn, ToDo.TaskAgent.user_tasks(params[:id]))
       end
+
+      namespace :tasks do
+        route_param :date do
+          get do
+            json(conn, ToDo.TaskAgent.tasks_by_date(params[:id], params[:date]))
+          end
+        end
+      end
     end
   end
 

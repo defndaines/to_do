@@ -37,7 +37,6 @@ iex -S mix
 This should expose endpoints such as:
 ```
 curl http://127.0.0.1:8080/users
-curl http://127.0.0.1:8080/users/alice
 ```
 
 ## API
@@ -48,11 +47,34 @@ The following endpoints are supported.
 
 Returns a list of all users.
 
+Example:
+```
+curl http://127.0.0.1:8080/users
+
+[ "alice", "bob", "claire" ]
+```
+
 ### GET `/users/<user-id>`
 
 Returns a list of all tasks for the user.
+
+Example:
+```
+curl http://127.0.0.1:8080/users/alice
+
+{ "2016-09-09": [ "Change light bulb" ]
+, "2016-09-08": [ "Buy some milk" ]
+}
+```
 
 ### GET `/users/<user-id>/tasks/<date>`
 
 Returns a list of all tasks for the user on the given date. Dates are
 represented in ISO 8601 date format (YYYY-MM-DD).
+
+Example:
+```
+curl http://127.0.0.1:8080/users/claire/tasks/2016-09-10
+
+[ "Clean room", "Go to the movies" ]
+```
