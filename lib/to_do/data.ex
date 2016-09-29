@@ -7,11 +7,18 @@ defmodule ToDo.Data do
   # External API
 
   @doc """
-  Convert file into a list of maps containing task data.
+  Load tasks into the TaskAgent from a `file` with records separated by `separator`.
   """
-  def parse_data(file, separator) do
+  def load_from_file(file, separator) do
     File.stream!(file)
     |> CSV.decode(separator: separator, headers: true)
-    |> Enum.to_list()
+    |> Enum.each(&load_task/1)
+  end
+
+  ##
+  # Internal implementations
+
+  defp load_task(%{"user" => user, "date" => date, "task" => task}) do
+    ToDo.TaskAgent.add_task(user, date, task)
   end
 end

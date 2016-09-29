@@ -2,21 +2,31 @@ defmodule ToDo.DataTest do
   use ExUnit.Case, async: true
   doctest ToDo.Data
 
-  test "reads provided file" do
+  setup do
+    {:ok, agent} = TaskAgent.start_link
+    {:ok, agent: agent}
+  end
+
+  test "reads data from provided file into the TaskAgent" do
     filename = "test/data.csv"
 
-    data = ToDo.Data.parse_data(filename, ?|)
+    ToDo.Data.load_from_file(filename, ?|)
 
-    assert length(data) == 7
-    first_task = List.first(data)
-    assert first_task["user"] == "alice"
-    assert first_task["date"] == "2016-09-08"
-    assert first_task["task"] == "Buy some milk"
+    users = ToDo.TaskAgent.users()
+    assert length(users) == 3
+    assert Enum.member? users, "alice"
+    assert Enum.member? users, "bob"
+    assert Enum.member? users, "claire"
 
-    last_task = List.last(data)
-    assert last_task["user"] == "claire"
-    assert last_task["date"] == "2016-09-11"
-    assert last_task["task"] == "Call mom"
+    claire_dates = ToDo.TaskAgent.user_tasks("claire")
+    assert length(Map.keys(claire_dates)) == 2
+    assert Map.has_key? claire_dates, "2016-09-10"
+    assert Map.has_key? claire_dates, "2016-09-11"
+
+    tenth_tasks = ToDo.TaskAgent.tasks_by_date("claire", "2016-09-10")
+    assert Set.size(tenth_tasks) == 2
+    assert Set.member? tenth_tasks, "Go to the movies"
+    assert Set.member? tenth_tasks, "Clean room"
   end
 end
 
